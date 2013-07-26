@@ -1,0 +1,3 @@
+﻿
+    d:DataContext="{d:DesignInstance Type=designData:MainPageViewModel, IsDesignTimeCreatable=True}"
+    cal:Bind.AtDesignTime="True"

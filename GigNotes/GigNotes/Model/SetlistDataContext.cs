@@ -7,21 +7,22 @@ using System.ComponentModel;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
 
-
 namespace GigNotes.Model
 {
+    public interface ISetlistDataContext { }
+
     public class SetlistDataContext : DataContext
     {
         // Pass the connection string to the base class.
-        public SetlistDataContext(string connectionString)
-            : base(connectionString)
+        public SetlistDataContext()
+            : base(App.DbConnection)
         { }
-
+        
         public Table<Setlist> Setlists;
     }
 
     [Table]
-    public class Setlist : INotifyPropertyChanged, INotifyPropertyChanging
+    public class Setlist
     {
         // Version column aids update performance.
         [Column(IsVersion = true)]
