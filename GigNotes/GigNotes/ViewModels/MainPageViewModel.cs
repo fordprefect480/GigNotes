@@ -1,14 +1,18 @@
 using Caliburn.Micro;
 using GigNotes.Model;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.ComponentModel;
+using Microsoft.Phone.Controls;
 
 namespace GigNotes.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
+        #region Properties
+
         private readonly INavigationService _navigationService;
         private SetlistDataContext _db;
 
@@ -37,44 +41,36 @@ namespace GigNotes.ViewModels
             get { return _isInMultiSelectMode; }
             set
             {
-                _isInMultiSelectMode = value;
+                if (value)
+                {
+                    _isInMultiSelectMode = true;
+
+                    AddSetlistIsVisible = false;
+                    DeleteSetlistsIsVisible = true;
+                }
+                else
+                {
+                    _isInMultiSelectMode = false;
+
+                    AddSetlistIsVisible = true;
+                    DeleteSetlistsIsVisible = false;
+                }
+
                 NotifyOfPropertyChange(() => IsInMultiSelectMode);
             }
         }
 
+        #endregion
+        
         public MainPageViewModel(INavigationService navigationService)
         {
             this._navigationService = navigationService;
             _db = new SetlistDataContext();
             _setlists = new BindableCollection<Setlist>();
 
-            AddSetlistText = "add setlist";
-            AddSetlistIcon = new Uri("/Assets/Images/add.png", UriKind.Relative);
-            AddSetlistIsVisible = true;
-            SelectionModeText = "select";
-            SelectionModeIcon = new Uri("/Assets/Images/select.png", UriKind.Relative);
-            SelectionModeIsVisible = true;
-             
+            SetUpAppBar();             
             LoadCollectionsFromDatabase();            
-        }
-
-        private void LoadDesignData()
-        {
-            var testSetlist1 = new Setlist() { SetlistId = 1, Name = "Kierra's Wedding", GigDate = DateTime.Now.Date.AddDays(7), AdditionalInfo = "Park behind restaurant" };
-            var testSetlist2 = new Setlist() { SetlistId = 2, Name = "Swing Dancing", GigDate = DateTime.Now.Date.AddDays(12), AdditionalInfo = "Set up 7pm" };
-            _setlists.Add(testSetlist1);
-            _setlists.Add(testSetlist2);
-        }
-
-        private void LoadCollectionsFromDatabase()
-        {
-            // Specify the query for all to-do items in the database.
-            var setlistsInDB = from Setlist sl in _db.Setlists
-                               select sl;
-
-            // Query the database and load all to-do items.
-            _setlists.AddRange(setlistsInDB);
-        }
+        }   
 
         #region App Bar
 
@@ -150,9 +146,100 @@ namespace GigNotes.ViewModels
             }
         }
 
+        private string _deleteSetlistsText;
+        public string DeleteSetlistsText
+        {
+            get { return _deleteSetlistsText; }
+            set
+            {
+                if (_deleteSetlistsText == value) return;
+                _deleteSetlistsText = value;
+                NotifyOfPropertyChange(() => DeleteSetlistsText);
+            }
+        }
+
+        private Uri _deleteSetlistsIcon;
+        public Uri DeleteSetlistsIcon
+        {
+            get { return _deleteSetlistsIcon; }
+            set
+            {
+                if (_deleteSetlistsIcon == value) return;
+                _deleteSetlistsIcon = value;
+                NotifyOfPropertyChange(() => DeleteSetlistsIcon);
+            }
+        }
+
+        private bool _deleteSetlistsIsVisible;
+        public bool DeleteSetlistsIsVisible
+        {
+            get { return _deleteSetlistsIsVisible; }
+            set
+            {
+                if (_deleteSetlistsIsVisible == value) return;
+                _deleteSetlistsIsVisible = value;
+                NotifyOfPropertyChange(() => DeleteSetlistsIsVisible);
+            }
+        }
+
         #endregion 
 
-        private void OpenSetlist()
+        #region Public Methods
+
+        public void AddSetlist()
+        {
+            GoToNewSetlistPage();
+        }
+
+        public void DeleteSetlists()
+        {
+            var setlistsToDeleteFrom = Setlists.ToList<Setlist>();
+            foreach (Setlist item in setlistsToDeleteFrom)
+            {
+                if (item.IsSelected)
+                {
+                    DeleteSetlist(item);
+                }
+            }
+
+            SaveToDB();
+            ToggleSelectionMode();
+        }
+        
+        public void SelectionChanged(LongListMultiSelector llms)
+        {
+            Setlist[] listOfSelectedSetlist = new Setlist[llms.SelectedItems.Count];
+            llms.SelectedItems.CopyTo(listOfSelectedSetlist, 0);            
+
+            foreach (var item in Setlists)
+            {
+                if (listOfSelectedSetlist.Any(s => s.SetlistId == item.SetlistId))
+                {
+                    item.IsSelected = true;
+                }
+                else
+                {
+                    item.IsSelected = false;
+                }
+            }
+        }
+
+        public void ToggleSelectionMode()
+        {
+            IsInMultiSelectMode = !IsInMultiSelectMode;
+        }
+
+        // Remove a setlist from the database and collections.
+        public void DeleteSetlist(Setlist setlistForDelete)
+        {
+            // Remove the setlist from the observable collection.
+            Setlists.Remove(setlistForDelete);
+
+            // Remove the setlist from the data context.
+            _db.Setlists.DeleteOnSubmit(setlistForDelete);
+        }
+
+        public void OpenSetlist()
         {
             /*
             // If selected item is null (no selection) do nothing
@@ -167,9 +254,27 @@ namespace GigNotes.ViewModels
              * */
         }
 
-        public void AddSetlist()
+        #endregion
+
+        #region Private Methods
+
+        private void SetUpAppBar()
         {
-            GoToNewSetlistPage();
+
+            AddSetlistText = "add setlist";
+            AddSetlistIcon = new Uri("/Assets/Images/add.png", UriKind.Relative);
+            AddSetlistIsVisible = true;
+            SelectionModeText = "select";
+            SelectionModeIcon = new Uri("/Assets/Images/select.png", UriKind.Relative);
+            SelectionModeIsVisible = true;
+            DeleteSetlistsText = "delete";
+            DeleteSetlistsIcon = new Uri("/Assets/Images/delete.png", UriKind.Relative);
+            DeleteSetlistsIsVisible = false;
+        }
+
+        private void SaveToDB()
+        {
+            _db.SubmitChanges();
         }
 
         private void GoToNewSetlistPage()
@@ -177,30 +282,17 @@ namespace GigNotes.ViewModels
             _navigationService.UriFor<NewSetlistPageViewModel>().Navigate();
         }
 
-        public void ToggleSelectionMode()
+        private void LoadCollectionsFromDatabase()
         {
-            if (IsInMultiSelectMode)
-            {
-                IsInMultiSelectMode = false;
-            }
-            else
-            {
-                IsInMultiSelectMode = true;
-            }
+            // Specify the query for all to-do items in the database.
+            var setlistsInDB = from Setlist sl in _db.Setlists
+                               select sl;
+
+            // Query the database and load all to-do items.
+            _setlists.AddRange(setlistsInDB);
         }
 
-        // Remove a to-do task item from the database and collections.
-        public void DeleteSetlist(Setlist setlistForDelete)
-        {
+        #endregion
 
-            // Remove the to-do item from the "all" observable collection.
-            //Setlists.Remove(setlistForDelete);
-
-            // Remove the to-do item from the data context.
-            //setlistDB.Setlists.DeleteOnSubmit(setlistForDelete);
-
-            // Save changes to the database.
-            //setlistDB.SubmitChanges();
-        }
     }
 }

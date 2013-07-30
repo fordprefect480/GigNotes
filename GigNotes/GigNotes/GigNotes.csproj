@@ -160,6 +160,7 @@
     <Content Include="Assets\Backgrounds\plantcase.jpg" />
     <Content Include="Assets\Backgrounds\stickeredcase.jpg" />
     <Content Include="Assets\Images\add.png" />
+    <Content Include="Assets\Images\delete.png" />
     <Content Include="Assets\Images\select.png" />
     <Content Include="Assets\Images\cancel.png" />
     <Content Include="Assets\Images\check.png" />
@@ -182,10 +183,6 @@
     <Content Include="README_FIRST.txt" />
     <Content Include="SplashScreenImage.jpg" />
     <Content Include="TextFile1.txt" />
-    <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
-    <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
-    <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
-    <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\AppResources.resx">

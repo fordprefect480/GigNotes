@@ -28,16 +28,20 @@
         <phone:Pivot Title="GIG NOTES" x:Name="MainPivot" SelectionChanged="Pivot_SelectionChanged">
 
             <phone:PivotItem Header="setlists">
-                <toolkit:LongListMultiSelector x:Name="Setlists">
+                <toolkit:LongListMultiSelector 
+                    x:Name="Setlists" 
+                    IsSelectionEnabled="{Binding IsInMultiSelectMode, Mode=TwoWay}" 
+                    cal:Message.Attach="[Event SelectionChanged] = [Action SelectionChanged($source)]"
+                    cal:Message.Handler="[Event IsSelectionEnabledChanged] = [Action ToggleSelectionMode()]">
                     <toolkit:LongListMultiSelector.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="0,0,0,17">
+                            <StackPanel>
                                 <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" />
-                                <TextBlock Text="{Binding GigDateFormatted}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextAccentStyle}" />
+                                <TextBlock Text="{Binding GigDateFormatted}" TextWrapping="Wrap" Style="{StaticResource PhoneTextAccentStyle}" />
                             </StackPanel>
-                        </DataTemplate>
+                        </DataTemplate>                         
                     </toolkit:LongListMultiSelector.ItemTemplate>
-                </toolkit:LongListMultiSelector>               
+                </toolkit:LongListMultiSelector>
             </phone:PivotItem>
 
             <phone:PivotItem Header="about">
@@ -64,12 +68,16 @@
             <bab:BindableAppBarButton x:Name="AddSetlist"
 				Text="{Binding AddSetlistText}"
 				IconUri="{Binding AddSetlistIcon}"
-				Visibility="{Binding AddSetlistIsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"  />
+				Visibility="{Binding AddSetlistIsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <bab:BindableAppBarButton x:Name="DeleteSetlists" 
+				Text="{Binding DeleteSetlistsText}"
+				IconUri="{Binding DeleteSetlistsIcon}"
+				Visibility="{Binding DeleteSetlistsIsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
             <bab:BindableAppBarButton x:Name="ToggleSelectionMode" 
 				Text="{Binding SelectionModeText}"
 				IconUri="{Binding SelectionModeIcon}"
-				Visibility="{Binding SelectionModeIsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"  />
-        </bab:BindableAppBar>
+				Visibility="{Binding SelectionModeIsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+       </bab:BindableAppBar>
 
     </Grid>
     

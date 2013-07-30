@@ -12,6 +12,7 @@ using GigNotes.ViewModels;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using GigNotes.Model;
+using System.Collections.ObjectModel;
 
 namespace GigNotes.Views
 {
@@ -21,10 +22,8 @@ namespace GigNotes.Views
         public MainPage()
         {
             InitializeComponent();
-
-            //Setlists.item
-        }  
-
+        }
+                       
         private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (MainPivot.SelectedIndex == 0)

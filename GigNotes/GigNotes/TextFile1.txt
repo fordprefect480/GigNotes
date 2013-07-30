@@ -1,3 +1,8 @@
 ﻿
-    d:DataContext="{d:DesignInstance Type=designData:MainPageViewModel, IsDesignTimeCreatable=True}"
-    cal:Bind.AtDesignTime="True"
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <cal:ActionMessage MethodName="SelectASetlist">
+                                        <cal:Parameter Value="{Binding ElementName=$dataContext}" />
+                                    </cal:ActionMessage>                                                       
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>

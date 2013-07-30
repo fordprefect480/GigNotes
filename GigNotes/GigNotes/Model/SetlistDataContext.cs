@@ -102,6 +102,21 @@ namespace GigNotes.Model
             }
         }
 
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get { return _isSelected; }
+            set
+            {
+                if (_isSelected != value)
+                {
+                    NotifyPropertyChanging("IsSelected");
+                    _isSelected = value;
+                    NotifyPropertyChanged("IsSelected");
+                }
+            }
+        }
+
         //private List<Set> _sets;
 
         //public List<Set> Sets
