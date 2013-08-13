@@ -1,0 +1,656 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Caliburn.Micro.Extras</name>
+    </assembly>
+    <members>
+        <member name="T:Caliburn.Micro.Extras.ActionCommand">
+            <summary>
+            Wraps a ViewModel method (with guard) in an <see cref="T:System.Windows.Input.ICommand"/>.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.ActionCommand.#ctor(System.Object,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Micro.Extras.ActionCommand"/> class.
+            </summary>
+            <param name="target">The target.</param>
+            <param name="methodName">Name of the method.</param>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.ActionCommand.Execute(System.Object)">
+            <summary>
+            Defines the method to be called when the command is invoked.
+            </summary>
+            <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.ActionCommand.CanExecute(System.Object)">
+            <summary>
+            Defines the method that determines whether the command can execute in its current state.
+            </summary>
+            <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
+            <returns>true if this command can be executed; otherwise, false.</returns>
+        </member>
+        <member name="E:Caliburn.Micro.Extras.ActionCommand.CanExecuteChanged">
+            <summary>
+            Occurs when changes occur that affect whether the command should execute.
+            </summary>
+        </member>
+        <member name="T:Caliburn.Micro.Extras.ContentHost">
+            <summary>
+            Custom <see cref="T:System.Windows.Controls.ContentControl"/> that caches all views so that it can quickly switch between them.
+            </summary>
+            <remarks>
+            Models have to implement <see cref="T:Caliburn.Micro.IDeactivate"/> so views can be cached.
+            </remarks>
+        </member>
+        <member name="F:Caliburn.Micro.Extras.ContentHost.CurrentModelProperty">
+            <summary>
+            A dependency property for attaching a model to the UI.
+            </summary>
+        </member>
+        <member name="P:Caliburn.Micro.Extras.ContentHost.CurrentModel">
+            <summary>
+            Gets or sets the current model.
+            </summary>
+        </member>
+        <member name="T:Caliburn.Micro.Extras.DebugLogger">
+            <summary>
+              A simple logger thats logs everything to the debugger.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.DebugLogger.#ctor(System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Micro.Extras.DebugLogger"/> class.
+            </summary>
+            <param name="type">The type.</param>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.DebugLogger.Info(System.String,System.Object[])">
+            <summary>
+            Logs the message as info.
+            </summary>
+            <param name="format">A formatted message.</param>
+            <param name="args">Parameters to be injected into the formatted message.</param>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.DebugLogger.Warn(System.String,System.Object[])">
+            <summary>
+            Logs the message as a warning.
+            </summary>
+            <param name="format">A formatted message.</param>
+            <param name="args">Parameters to be injected into the formatted message.</param>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.DebugLogger.Error(System.Exception)">
+            <summary>
+            Logs the exception.
+            </summary>
+            <param name="exception">The exception.</param>
+        </member>
+        <member name="T:Caliburn.Micro.Extras.ContinueResultDecorator">
+            <summary>
+            A result decorator which executes a coroutine when the wrapped result was cancelled.
+            </summary>
+        </member>
+        <member name="T:Caliburn.Micro.Extras.ResultDecoratorBase">
+            <summary>
+            Base class for all <see cref="T:Caliburn.Micro.IResult"/> decorators.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.ResultDecoratorBase.#ctor(Caliburn.Micro.IResult)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Micro.Extras.ResultDecoratorBase"/> class.
+            </summary>
+            <param name="result">The result to decorate.</param>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.ResultDecoratorBase.Execute(Caliburn.Micro.ActionExecutionContext)">
+            <summary>
+            Executes the result using the specified context.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.ResultDecoratorBase.OnInnerResultCompleted(Caliburn.Micro.IResult,Caliburn.Micro.ResultCompletionEventArgs)">
+            <summary>
+            Called when the execution of the decorated result has completed.
+            </summary>
+            <param name="innerResult">The decorated result.</param>
+            <param name="args">The <see cref="T:Caliburn.Micro.ResultCompletionEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.ResultDecoratorBase.OnCompleted(Caliburn.Micro.ResultCompletionEventArgs)">
+            <summary>
+            Raises the <see cref="E:Caliburn.Micro.Extras.ResultDecoratorBase.Completed"/> event.
+            </summary>
+            <param name="args">The <see cref="T:Caliburn.Micro.ResultCompletionEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="E:Caliburn.Micro.Extras.ResultDecoratorBase.Completed">
+            <summary>
+            Occurs when execution has completed.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.ContinueResultDecorator.#ctor(Caliburn.Micro.IResult,System.Func{System.Collections.Generic.IEnumerable{Caliburn.Micro.IResult}})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Micro.Extras.ContinueResultDecorator"/> class.
+            </summary>
+            <param name="result">The result to decorate.</param>
+            <param name="coroutine">The coroutine to execute when <paramref name="result"/> was canceled.</param>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.ContinueResultDecorator.Execute(Caliburn.Micro.ActionExecutionContext)">
+            <summary>
+            Executes the result using the specified context.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.ContinueResultDecorator.OnInnerResultCompleted(Caliburn.Micro.IResult,Caliburn.Micro.ResultCompletionEventArgs)">
+            <summary>
+            Called when the execution of the decorated result has completed.
+            </summary>
+            <param name="innerResult">The decorated result.</param>
+            <param name="args">The <see cref="T:Caliburn.Micro.ResultCompletionEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="T:Caliburn.Micro.Extras.OverrideCancelResultDecorator">
+            <summary>
+            A result decorator that overrides <see cref="F:Caliburn.Micro.ResultCompletionEventArgs.WasCancelled"/> of the decorated <see cref="T:Caliburn.Micro.IResult"/> instance.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.OverrideCancelResultDecorator.#ctor(Caliburn.Micro.IResult)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Micro.Extras.OverrideCancelResultDecorator"/> class.
+            </summary>
+            <param name="result">The result to decorate.</param>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.OverrideCancelResultDecorator.OnInnerResultCompleted(Caliburn.Micro.IResult,Caliburn.Micro.ResultCompletionEventArgs)">
+            <summary>
+            Called when the execution of the decorated result has completed.
+            </summary>
+            <param name="innerResult">The decorated result.</param>
+            <param name="args">The <see cref="T:Caliburn.Micro.ResultCompletionEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="T:Caliburn.Micro.Extras.RescueResultDecorator`1">
+            <summary>
+            A result decorator which rescues errors from the decorated result by executing a rescue coroutine.
+            </summary>
+            <typeparam name="TException">The type of the exception we want to perform the rescue on</typeparam>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.RescueResultDecorator`1.#ctor(Caliburn.Micro.IResult,System.Func{`0,System.Collections.Generic.IEnumerable{Caliburn.Micro.IResult}},System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Micro.Extras.RescueResultDecorator`1"/> class.
+            </summary>
+            <param name="result">The result to decorate.</param>
+            <param name="rescue">The rescue coroutine.</param>
+            <param name="cancelResult">Set to true to cancel the result after executing rescue.</param>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.RescueResultDecorator`1.Execute(Caliburn.Micro.ActionExecutionContext)">
+            <summary>
+            Executes the result using the specified context.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.RescueResultDecorator`1.OnInnerResultCompleted(Caliburn.Micro.IResult,Caliburn.Micro.ResultCompletionEventArgs)">
+            <summary>
+            Called when the execution of the decorated result has completed.
+            </summary>
+            <param name="innerResult">The decorated result.</param>
+            <param name="args">The <see cref="T:Caliburn.Micro.ResultCompletionEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="T:Caliburn.Micro.Extras.EventAggregatorExtensions">
+            <summary>
+            Extensions for <see cref="T:Caliburn.Micro.IEventAggregator"/>.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.EventAggregatorExtensions.PublishOnCurrentThread(Caliburn.Micro.IEventAggregator,System.Object)">
+            <summary>
+              Publishes a message on the current thread (synchrone).
+            </summary>
+            <param name="eventAggregator">The event aggregator.</param>
+            <param name = "message">The message instance.</param>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.EventAggregatorExtensions.PublishOnBackgroundThread(Caliburn.Micro.IEventAggregator,System.Object)">
+            <summary>
+              Publishes a message on a background thread (async).
+            </summary>
+            <param name="eventAggregator">The event aggregator.</param>
+            <param name = "message">The message instance.</param>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.EventAggregatorExtensions.PublishOnUIThread(Caliburn.Micro.IEventAggregator,System.Object)">
+            <summary>
+              Publishes a message on the UI thread.
+            </summary>
+            <param name="eventAggregator">The event aggregator.</param>
+            <param name = "message">The message instance.</param>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.EventAggregatorExtensions.BeginPublishOnUIThread(Caliburn.Micro.IEventAggregator,System.Object)">
+            <summary>
+              Publishes a message on the UI thread asynchrone.
+            </summary>
+            <param name="eventAggregator">The event aggregator.</param>
+            <param name = "message">The message instance.</param>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.EventAggregatorExtensions.PublishOnUIThreadAsync(Caliburn.Micro.IEventAggregator,System.Object)">
+            <summary>
+              Publishes a message on the UI thread asynchrone.
+            </summary>
+            <param name="eventAggregator">The event aggregator.</param>
+            <param name="message">The message instance.</param>
+        </member>
+        <member name="T:Caliburn.Micro.Extras.WeakEventHandler">
+            <summary>
+            Helper class to add weak handlers to events.
+            </summary>
+            <remarks>
+            Access to the event and to the real event handler is done through lambda expressions.
+            The code holds strong references to these expressions, so they must not capture any
+            variables!
+            </remarks>
+            <example>
+            <code>
+            WeakEventHandler.Register(
+            	eh => textDocument.Changed += eh,
+            	eh => textDocument.Changed -= eh,
+            	this,
+            	(me, sender, args) => me.OnDocumentChanged(sender, args),
+            	h => new TextChangedEventHandler(h)
+            );
+            </code>
+            </example>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.WeakEventHandler.Deregister">
+            <summary>
+            Deregisters this handler.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.WeakEventHandler.Register``3(System.Action{``0},System.Action{``0},``2,System.Action{``2,System.Object,``1},System.Func{System.EventHandler{``1},``0})">
+            <summary>
+            Registers a weak event handler on a event.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.WeakEventHandler.Register``2(System.Action{System.EventHandler{``0}},System.Action{System.EventHandler{``0}},``1,System.Action{``1,System.Object,``0})">
+            <summary>
+            Registers a weak event handler on a generic event.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.WeakEventHandler.RegisterPropertyChanged``1(System.ComponentModel.INotifyPropertyChanged,``0,System.Action{``0,System.Object,System.ComponentModel.PropertyChangedEventArgs})">
+            <summary>
+            Registers  a weak event handler on property changed event.
+            </summary>
+            <typeparam name="TEventListener">The type of the event listener.</typeparam>
+            <param name="source">The event source.</param>
+            <param name="listeningObject">The listening object.</param>
+            <param name="forwardAction">The forward action.</param>
+        </member>
+        <member name="T:Caliburn.Micro.Extras.WeakEventSource`1">
+            <summary>
+            A class for managing a weak event.
+            </summary>
+            <typeparam name="TEventHandler">The type of the event handler.</typeparam>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.WeakEventSource`1.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Micro.Extras.WeakEventSource`1"/> class.
+            </summary>
+            <param name="invokationsToCompileDelegate">The number of invokations on which the delegate will be compiled.</param>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.WeakEventSource`1.Add(`0)">
+            <summary>
+            Adds the specified EventHandler.
+            </summary>
+            <param name="eh">The EventHandler.</param>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.WeakEventSource`1.Remove(`0)">
+            <summary>
+            Removes the specified EventHandler.
+            </summary>
+            <param name="eh">The EventHandler.</param>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.WeakEventSource`1.Raise(System.Object,System.EventArgs)">
+            <summary>
+            Raises the event.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="T:Caliburn.Micro.Extras.IModuleBootstrapper">
+            <summary>
+            Interface for module bootstrappers.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.IModuleBootstrapper.Initialize">
+            <summary>
+            Initializes the module.
+            </summary>
+        </member>
+        <member name="T:Caliburn.Micro.Extras.ModuleConventions">
+            <summary>
+            Conventions installer for ExternalModules support.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.ModuleConventions.Install">
+            <summary>
+            Installs the conventions needed for <see cref="T:Caliburn.Micro.Extras.IModuleBootstrapper"/>.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.ModuleConventions.InitializeAssembly(System.Reflection.Assembly)">
+            <summary>
+            Initializes the assembly.
+            </summary>
+            <param name="assembly">The assembly.</param>
+        </member>
+        <member name="T:Caliburn.Micro.Extras.ResultExtensions">
+            <summary>
+            Extension methods for <see cref="T:Caliburn.Micro.IResult"/> instances.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.ResultExtensions.WhenCancelled(Caliburn.Micro.IResult,System.Func{System.Collections.Generic.IEnumerable{Caliburn.Micro.IResult}})">
+            <summary>
+            Adds behavior to the result which is executed when the <paramref name = "result" /> was cancelled.
+            </summary>
+            <param name="result">The result to decorate.</param>
+            <param name="coroutine">The coroutine to execute when <paramref name="result"/> was canceled.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.ResultExtensions.OverrideCancel(Caliburn.Micro.IResult)">
+            <summary>
+            Overrides <see cref="F:Caliburn.Micro.ResultCompletionEventArgs.WasCancelled"/> of the decorated <paramref name="result"/> instance.
+            </summary>
+            <param name="result">The result to decorate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.ResultExtensions.Rescue``1(Caliburn.Micro.IResult,System.Func{``0,System.Collections.Generic.IEnumerable{Caliburn.Micro.IResult}},System.Boolean)">
+            <summary>
+            Rescues <typeparamref name = "TException" /> from the decorated <paramref name = "result" /> by executing a <paramref name = "rescue" /> coroutine.
+            </summary>
+            <typeparam name = "TException">The type of the exception we want to perform the rescue on.</typeparam>
+            <param name="result">The result to decorate.</param>
+            <param name="rescue">The rescue coroutine.</param>
+            <param name="cancelResult">Set to true to cancel the result after executing rescue.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.ResultExtensions.Rescue(Caliburn.Micro.IResult,System.Func{System.Exception,System.Collections.Generic.IEnumerable{Caliburn.Micro.IResult}},System.Boolean)">
+            <summary>
+            Rescues any exception from the decorated <paramref name = "result" /> by executing a <paramref name = "rescue" /> coroutine.
+            </summary>
+            <param name="result">The result to decorate.</param>
+            <param name="rescue">The rescue coroutine.</param>
+            <param name="cancelResult">Set to true to cancel the result after executing rescue.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Caliburn.Micro.Extras.CancelResult">
+            <summary>
+            A result that is always canceled.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.CancelResult.Execute(Caliburn.Micro.ActionExecutionContext)">
+            <summary>
+            Executes the result using the specified context.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="E:Caliburn.Micro.Extras.CancelResult.Completed">
+            <summary>
+            Occurs when execution has completed.
+            </summary>
+        </member>
+        <member name="T:Caliburn.Micro.Extras.DelegateResult">
+            <summary>
+            A result that executes an <see cref="T:System.Action"/>.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.DelegateResult.#ctor(System.Action)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Micro.Extras.DelegateResult"/> class.
+            </summary>
+            <param name="action">The action.</param>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.DelegateResult.Execute(Caliburn.Micro.ActionExecutionContext)">
+            <summary>
+            Executes the result using the specified context.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="E:Caliburn.Micro.Extras.DelegateResult.Completed">
+            <summary>
+            Occurs when execution has completed.
+            </summary>
+        </member>
+        <member name="T:Caliburn.Micro.Extras.DelegateResult`1">
+            <summary>
+            A result that executes a <see cref="T:System.Func`1"/>
+            </summary>
+            <typeparam name="TResult">The type of the result.</typeparam>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.DelegateResult`1.#ctor(System.Func{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Micro.Extras.DelegateResult`1"/> class.
+            </summary>
+            <param name="action">The action.</param>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.DelegateResult`1.Execute(Caliburn.Micro.ActionExecutionContext)">
+            <summary>
+            Executes the result using the specified context.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="P:Caliburn.Micro.Extras.DelegateResult`1.Result">
+            <summary>
+            Gets the result.
+            </summary>
+        </member>
+        <member name="E:Caliburn.Micro.Extras.DelegateResult`1.Completed">
+            <summary>
+            Occurs when execution has completed.
+            </summary>
+        </member>
+        <member name="T:Caliburn.Micro.Extras.MessengerResult">
+            <summary>
+            A Caliburn.Micro Result that lets you show messages.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.MessengerResult.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Caliburn.Micro.Extras.MessengerResult"/> class.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.MessengerResult.Caption(System.String)">
+            <summary>
+            Sets the caption.
+            </summary>
+            <param name="text">The caption text.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.MessengerResult.Buttons(Caliburn.Micro.Extras.MessageButton)">
+            <summary>
+            Sets the button.
+            </summary>
+            <param name="buttons">The button.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.MessengerResult.Image(Caliburn.Micro.Extras.MessageImage)">
+            <summary>
+            Sets the image.
+            </summary>
+            <param name="icon">The image.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.MessengerResult.Execute(Caliburn.Micro.ActionExecutionContext)">
+            <summary>
+            Executes the result using the specified context.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="P:Caliburn.Micro.Extras.MessengerResult.Result">
+            <summary>
+            Gets the message
+            </summary>
+        </member>
+        <member name="E:Caliburn.Micro.Extras.MessengerResult.Completed">
+            <summary>
+            Occurs when execution has completed.
+            </summary>
+        </member>
+        <member name="T:Caliburn.Micro.Extras.MessageResult">
+            <summary>
+            Available message results.
+            </summary>
+        </member>
+        <member name="F:Caliburn.Micro.Extras.MessageResult.None">
+            <summary>
+            No result available.
+            </summary>
+        </member>
+        <member name="F:Caliburn.Micro.Extras.MessageResult.OK">
+            <summary>
+            Message is acknowledged.
+            </summary>
+        </member>
+        <member name="F:Caliburn.Micro.Extras.MessageResult.Cancel">
+            <summary>
+            Message is canceled.
+            </summary>
+        </member>
+        <member name="F:Caliburn.Micro.Extras.MessageResult.Yes">
+            <summary>
+            Message is acknowledged with yes.
+            </summary>
+        </member>
+        <member name="F:Caliburn.Micro.Extras.MessageResult.No">
+            <summary>
+            Message is acknowledged with no.
+            </summary>
+        </member>
+        <member name="T:Caliburn.Micro.Extras.MessageButton">
+            <summary>
+            Available message buttons.
+            </summary>
+        </member>
+        <member name="F:Caliburn.Micro.Extras.MessageButton.OK">
+            <summary>
+            OK button.
+            </summary>
+        </member>
+        <member name="F:Caliburn.Micro.Extras.MessageButton.OKCancel">
+            <summary>
+            OK and Cancel buttons.
+            </summary>
+        </member>
+        <member name="F:Caliburn.Micro.Extras.MessageButton.YesNoCancel">
+            <summary>
+            Yes, No and Cancel buttons.
+            </summary>
+        </member>
+        <member name="F:Caliburn.Micro.Extras.MessageButton.YesNo">
+            <summary>
+            Yes and No buttons.
+            </summary>
+        </member>
+        <member name="T:Caliburn.Micro.Extras.MessageImage">
+            <summary>
+            Available message images.
+            </summary>
+        </member>
+        <member name="F:Caliburn.Micro.Extras.MessageImage.None">
+            <summary>
+            Show no image.
+            </summary>
+        </member>
+        <member name="F:Caliburn.Micro.Extras.MessageImage.Error">
+            <summary>
+            Error image.
+            </summary>
+        </member>
+        <member name="F:Caliburn.Micro.Extras.MessageImage.Question">
+            <summary>
+            Question image.
+            </summary>
+        </member>
+        <member name="F:Caliburn.Micro.Extras.MessageImage.Warning">
+            <summary>
+            Warning image.
+            </summary>
+        </member>
+        <member name="F:Caliburn.Micro.Extras.MessageImage.Information">
+            <summary>
+            Information image.
+            </summary>
+        </member>
+        <member name="T:Caliburn.Micro.Extras.IMessageService">
+            <summary>
+            Interface for the message service.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.IMessageService.Show(System.String,System.String,Caliburn.Micro.Extras.MessageButton,Caliburn.Micro.Extras.MessageImage)">
+            <summary>
+            Shows the specified message and returns the result.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="caption">The caption.</param>
+            <param name="button">The button.</param>
+            <param name="icon">The icon.</param>
+            <returns>The <see cref="T:Caliburn.Micro.Extras.MessageResult"/>.</returns>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.IMessageService.ShowAsync(System.String,System.String,Caliburn.Micro.Extras.MessageButton,Caliburn.Micro.Extras.MessageImage)">
+            <summary>
+            Shows the specified message and allows to await for the message to complete.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="caption">The caption.</param>
+            <param name="button">The button.</param>
+            <param name="icon">The icon.</param>
+            <returns>A Task containing the <see cref="T:Caliburn.Micro.Extras.MessageResult"/>.</returns>
+        </member>
+        <member name="T:Caliburn.Micro.Extras.MessageService">
+            <summary>
+            Message service that implements the <see cref="T:Caliburn.Micro.Extras.IMessageService"/> by using the <see cref="T:System.Windows.MessageBox"/> class.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.MessageService.Show(System.String,System.String,Caliburn.Micro.Extras.MessageButton,Caliburn.Micro.Extras.MessageImage)">
+            <summary>
+            Shows the specified message and returns the result.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="caption">The caption.</param>
+            <param name="button">The button.</param>
+            <param name="icon">The icon.</param>
+            <returns>The <see cref="T:Caliburn.Micro.Extras.MessageResult"/>.</returns>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.MessageService.ShowAsync(System.String,System.String,Caliburn.Micro.Extras.MessageButton,Caliburn.Micro.Extras.MessageImage)">
+            <summary>
+            Shows the specified message and allows to await for the message to complete.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="caption">The caption.</param>
+            <param name="button">The button.</param>
+            <param name="icon">The icon.</param>
+            <returns>A Task containing the <see cref="T:Caliburn.Micro.Extras.MessageResult"/>.</returns>
+        </member>
+        <member name="T:Caliburn.Micro.Extras.ModuleBootstrapperBase">
+            <summary>
+            Base class for all module bootstrappers.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.ModuleBootstrapperBase.Initialize">
+            <summary>
+            Initializes the module.
+            </summary>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.ModuleBootstrapperBase.ConfigureStorageMechanismsAndWorkers(Caliburn.Micro.SimpleContainer)">
+            <summary>
+            Identify, load and configure all instances of <see cref="T:Caliburn.Micro.IStorageMechanism"/> and <see cref="T:Caliburn.Micro.IStorageHandler"/> 
+            that are defined in the assembly associated with this bootstrapper.
+            </summary>
+            <param name="phoneContainer">The currently configured <see cref="T:Caliburn.Micro.PhoneContainer"/>.</param>
+            <remarks>
+            Caliburn Micro will automatically load storage handlers and storage mechanisms from the assemblies configured
+            in <see cref="F:Caliburn.Micro.AssemblySource.Instance"/> when <see cref="M:Caliburn.Micro.PhoneContainer.RegisterPhoneServices(System.Windows.Controls.Frame,System.Boolean)"/> is first invoked.
+            Since the purpose of this bootstrapper is to allow the delayed loading of assemblies, it makes sense to locate
+            the storage handlers alongside the view models in the same assembly. 
+            </remarks>
+        </member>
+        <member name="M:Caliburn.Micro.Extras.ModuleBootstrapperBase.Configure(Caliburn.Micro.PhoneContainer)">
+            <summary>
+            Override to setup the IoC container for this module.
+            </summary>
+            <param name="container">The parent IoC container.</param>
+        </member>
+        <member name="P:Caliburn.Micro.Extras.ModuleBootstrapperBase.Container">
+            <summary>
+            Gets or sets the IoC container.
+            </summary>
+        </member>
+    </members>
+</doc>

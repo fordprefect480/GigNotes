@@ -1,4 +1,5 @@
 ﻿<phone:PhoneApplicationPage
+    x:Class="GigNotes.Views.MainPageAboutPivotView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -10,36 +11,29 @@
     xmlns:bab="clr-namespace:Caliburn.Micro.BindableAppBar;assembly=Caliburn.Micro.BindableAppBar"
     xmlns:Model="clr-namespace:GigNotes.Model"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-    x:Class="GigNotes.Views.SetlistPage"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait,Landscape" Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
+    d:DesignHeight="480" d:DesignWidth="480">
 
-    <!--LayoutRoot contains the root grid where all other page content is placed-->
     <Grid x:Name="LayoutRoot">
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.Background>
-            <ImageBrush ImageSource="/Assets/Backgrounds/plantcase.jpg" Opacity="0.2" Stretch="UniformToFill"/>
-        </Grid.Background>          
-        
-        <!--Pivot Control-->
-        <phone:Pivot Title="GIG NOTES" x:Name="Items" SelectedItem="{Binding ActiveItem, Mode=TwoWay}">
-
-            <phone:Pivot.HeaderTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding SetName}" />
-                </DataTemplate>
-            </phone:Pivot.HeaderTemplate>
-            
-        </phone:Pivot>
-
+        <StackPanel Margin="10,0,0,0">
+            <TextBlock>
+				<Run Text="Gig Notes"/>
+				<LineBreak />
+				<Run Text="Version 0.1"/>
+				<LineBreak /><LineBreak />
+				<Run Text="Created by Flying Gibbon"/>
+				<LineBreak />
+            </TextBlock>
+            <TextBlock TextWrapping="Wrap">
+				<Run Text="Gig Notes is an app for the gigging musician, written by a gigging musician. It keeps track of your songs, setlists, and gigs for you, so that you know what to play and when."/>
+            </TextBlock>
+            <TextBlock TextWrapping="Wrap">
+				<Run Text="Even better, Gig Notes will store information on individual tracks such as key, BPM, song structure, and even tablature in case you're the one counting in!"/>
+            </TextBlock>
+        </StackPanel>
     </Grid>
 
 </phone:PhoneApplicationPage>

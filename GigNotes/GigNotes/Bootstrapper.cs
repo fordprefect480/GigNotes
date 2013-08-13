@@ -9,6 +9,7 @@ using Caliburn.Micro;
 using Caliburn.Micro.BindableAppBar;
 using System.Windows.Controls;
 using Microsoft.Phone.Controls;
+using Caliburn.Micro.Extras;
 
 namespace GigNotes
 {
@@ -18,13 +19,17 @@ namespace GigNotes
 
         protected override void Configure()
         {
-            container = new PhoneContainer(RootFrame);
+            container = new PhoneContainer();
 
-            container.RegisterPhoneServices();
-            container.PerRequest<MainPageViewModel>(); 
+            container.RegisterPhoneServices(RootFrame);
+            container.PerRequest<MainPageViewModel>();
+            container.PerRequest<MainPageSetlistsPivotViewModel>();
+            container.PerRequest<MainPageSongsPivotViewModel>();
+            container.PerRequest<MainPageAboutPivotViewModel>();
             container.PerRequest<NewSetlistPageViewModel>();
+            container.PerRequest<SetlistPageViewModel>();
+            container.PerRequest<SetlistPivotViewModel>();
             container.PerRequest<SetlistDataContext>();
-
             AddCustomConventions();
         }
 

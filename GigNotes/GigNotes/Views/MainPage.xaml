@@ -25,59 +25,14 @@
             <ImageBrush ImageSource="/Assets/Backgrounds/plantcase.jpg" Opacity="0.2" Stretch="UniformToFill"/>
         </Grid.Background>
 
-        <phone:Pivot Title="GIG NOTES" x:Name="MainPivot" SelectionChanged="Pivot_SelectionChanged">
-
-            <phone:PivotItem Header="setlists">
-                <toolkit:LongListMultiSelector 
-                    x:Name="Setlists" 
-                    IsSelectionEnabled="{Binding IsInMultiSelectMode, Mode=TwoWay}" 
-                    cal:Message.Attach="[Event SelectionChanged] = [Action SelectionChanged($source)]"
-                    cal:Message.Handler="[Event IsSelectionEnabledChanged] = [Action ToggleSelectionMode()]">
-                    <toolkit:LongListMultiSelector.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" />
-                                <TextBlock Text="{Binding GigDateFormatted}" TextWrapping="Wrap" Style="{StaticResource PhoneTextAccentStyle}" />
-                            </StackPanel>
-                        </DataTemplate>                         
-                    </toolkit:LongListMultiSelector.ItemTemplate>
-                </toolkit:LongListMultiSelector>
-            </phone:PivotItem>
-
-            <phone:PivotItem Header="about">
-                <StackPanel Margin="10,0,0,0">
-                    <TextBlock>
-						<Run Text="Gig Notes"/>
-						<LineBreak />
-						<Run Text="Version 0.1"/>
-						<LineBreak /><LineBreak />
-						<Run Text="Created by Flying Gibbon"/>
-						<LineBreak />
-                    </TextBlock>
-                    <TextBlock TextWrapping="Wrap">
-						<Run Text="Gig Notes is an app for the gigging musician, written by a gigging musician. It keeps track of your songs, setlists, and gigs for you, so that you know what to play and when."/>
-                    </TextBlock>
-                    <TextBlock TextWrapping="Wrap">
-						<Run Text="Even better, Gig Notes will store information on individual tracks such as key, BPM, song structure, and even tablature in case you're the one counting in!"/>
-                    </TextBlock>
-                </StackPanel>
-            </phone:PivotItem>
+        <phone:Pivot Title="{Binding ApplicationTitle}" x:Name="Items" 
+                     SelectedItem="{Binding ActiveItem, Mode=TwoWay}"  >                    
+<phone:Pivot.HeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding DisplayName}" />
+                </DataTemplate>
+            </phone:Pivot.HeaderTemplate>
         </phone:Pivot>
-
-        <bab:BindableAppBar x:Name="AppBar" BarOpacity="0.99">
-            <bab:BindableAppBarButton x:Name="AddSetlist"
-				Text="{Binding AddSetlistText}"
-				IconUri="{Binding AddSetlistIcon}"
-				Visibility="{Binding AddSetlistIsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
-            <bab:BindableAppBarButton x:Name="DeleteSetlists" 
-				Text="{Binding DeleteSetlistsText}"
-				IconUri="{Binding DeleteSetlistsIcon}"
-				Visibility="{Binding DeleteSetlistsIsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
-            <bab:BindableAppBarButton x:Name="ToggleSelectionMode" 
-				Text="{Binding SelectionModeText}"
-				IconUri="{Binding SelectionModeIcon}"
-				Visibility="{Binding SelectionModeIsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
-       </bab:BindableAppBar>
 
     </Grid>
     

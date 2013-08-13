@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Caliburn.Micro.Extras</id>
+    <version>1.0.6</version>
+    <title>Caliburn.Micro Extras</title>
+    <authors>Thomas Ibel</authors>
+    <owners>Thomas Ibel</owners>
+    <licenseUrl>https://raw.github.com/tibel/Caliburn.Micro.Extras/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/tibel/Caliburn.Micro.Extras</projectUrl>
+    <iconUrl>https://raw.github.com/tibel/Caliburn.Micro.Extras/master/build/Icon_dialog.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Some additions to Caliburn.Micro framework.</description>
+    <releaseNotes>add ContentHost control</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <language>en-US</language>
+    <tags>Caliburn MVVM Silverlight WPF WP7 WP71 WP8 WinRT Metro SL SL4 SL5 Convention Screen Coroutine Behavior Model-View-ViewModel Presentation UI ViewModel Phone</tags>
+    <dependencies>
+      <dependency id="Caliburn.Micro" version="1.5.2" />
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations" targetFramework="Silverlight4.0, Silverlight5.0" />
+    </frameworkAssemblies>
+  </metadata>
+</package>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
+using Caliburn.Micro;
 
 namespace GigNotes.Model
 {
@@ -19,6 +20,8 @@ namespace GigNotes.Model
         { }
         
         public Table<Setlist> Setlists;
+
+        public Table<Song> Repertoire;
     }
 
     [Table]
@@ -117,19 +120,33 @@ namespace GigNotes.Model
             }
         }
 
-        //private List<Set> _sets;
+        private BindableCollection<Set> _sets;
+        public BindableCollection<Set> Sets
+        {
+            get
+            {
+                if (_sets == null)
+                {
+                    _sets = new BindableCollection<Set>();
+                    /* TEST DATA */
+                    var newSet = new Set();
+                    newSet.Order = 1;
+                    _sets.Add(newSet);
+                    newSet = new Set();
+                    newSet.Order = 2;
+                    _sets.Add(newSet); 
+                    newSet = new Set();
+                    newSet.Order = 3;
+                    _sets.Add(newSet);
+                    newSet = new Set();
+                    newSet.Order = 4;
+                    _sets.Add(newSet);
+                }
 
-        //public List<Set> Sets
-        //{
-        //    get 
-        //    {
-        //        if (_sets == null)
-        //            _sets = new List<Set>();
-
-        //        return _sets; 
-        //    }
-        //    private set {}
-        //}
+                return _sets;
+            }
+            private set { }
+        }
 
         #region INotifyPropertyChanged Members
 
@@ -162,5 +179,174 @@ namespace GigNotes.Model
         #endregion
     }
 
+    [Table]
+    public class Set
+    {
+        // Version column aids update performance.
+        [Column(IsVersion = true)]
+        private Binary _version;
 
+        // Define ID: private field, public property, and database column.
+        private int _setId;
+
+        [Column(IsPrimaryKey = true, IsDbGenerated = true, DbType = "INT NOT NULL Identity", CanBeNull = false, AutoSync = AutoSync.OnInsert)]
+        public int SetId
+        {
+            get { return _setId; }
+            set
+            {
+                if (_setId != value)
+                {
+                    NotifyPropertyChanging("SetId");
+                    _setId = value;
+                    NotifyPropertyChanged("SetId");
+                }
+            }
+        }
+
+        private int _order;
+
+        [Column]
+        public int Order
+        {
+            get { return _order; }
+            set
+            {
+                if (_order != value)
+                {
+                    NotifyPropertyChanging("Order");
+                    _order = value;
+                    NotifyPropertyChanged("Order");
+                }
+            }
+        }
+
+        public string SetName
+        {
+            get { return "set " + Order; }
+        }
+
+        private BindableCollection<Song> _songs;
+        public BindableCollection<Song> Songs
+        {
+            get
+            {
+                if (_songs == null)
+                {
+                    _songs = new BindableCollection<Song>();
+                    /* TEST DATA */
+                    var s = new Song() { SongId = 1, Title = "April Sun in Cuba" };
+                    var s2 = new Song() { SongId = 2, Title = "Thriller" };
+                    _songs.Add(s);
+                    _songs.Add(s2);
+
+                }
+                return _songs;
+            }
+            private set { }
+        }
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        // Used to notify that a property changed
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        #endregion
+
+        #region INotifyPropertyChanging Members
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        // Used to notify that a property is about to change
+        private void NotifyPropertyChanging(string propertyName)
+        {
+            if (PropertyChanging != null)
+            {
+                PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
+            }
+        }
+
+        #endregion
+    }
+
+    [Table]
+    public class Song
+    {
+        // Version column aids update performance.
+        [Column(IsVersion = true)]
+        private Binary _version;
+
+        // Define ID: private field, public property, and database column.
+        private int _songId;
+
+        [Column(IsPrimaryKey = true, IsDbGenerated = true, DbType = "INT NOT NULL Identity", CanBeNull = false, AutoSync = AutoSync.OnInsert)]
+        public int SongId
+        {
+            get { return _songId; }
+            set
+            {
+                if (_songId != value)
+                {
+                    NotifyPropertyChanging("SongId");
+                    _songId = value;
+                    NotifyPropertyChanged("SongId");
+                }
+            }
+        }
+
+        private string _title;
+
+        [Column]
+        public string Title
+        {
+            get { return _title; }
+            set
+            {
+                if (_title != value)
+                {
+                    NotifyPropertyChanging("Title");
+                    _title = value;
+                    NotifyPropertyChanged("Title");
+                }
+            }
+        }
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        // Used to notify that a property changed
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        #endregion
+
+        #region INotifyPropertyChanging Members
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        // Used to notify that a property is about to change
+        private void NotifyPropertyChanging(string propertyName)
+        {
+            if (PropertyChanging != null)
+            {
+                PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
+            }
+        }
+
+        #endregion
+    }
 }

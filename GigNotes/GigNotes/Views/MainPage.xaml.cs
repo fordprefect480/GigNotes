@@ -23,19 +23,5 @@ namespace GigNotes.Views
         {
             InitializeComponent();
         }
-                       
-        private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (MainPivot.SelectedIndex == 0)
-            {                
-                AppBar.IsVisible = true;
-                AppBar.IsMenuEnabled = true;
-            }
-            else
-            {
-                AppBar.IsVisible = false;
-                AppBar.IsMenuEnabled = false;
-            }
-        }
     }
 }

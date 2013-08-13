@@ -7,15 +7,14 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using GigNotes.Model;
 
 namespace GigNotes.Views
 {
-    public partial class SetlistPage : PhoneApplicationPage
+    public partial class SetPage : PhoneApplicationPage
     {
-        public SetlistPage()
+        public SetPage()
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
     }
 }
