@@ -27,6 +27,7 @@ namespace GigNotes
             container.PerRequest<MainPageSongsPivotViewModel>();
             container.PerRequest<MainPageAboutPivotViewModel>();
             container.PerRequest<NewSetlistPageViewModel>();
+            container.PerRequest<NewSongPageViewModel>();            
             container.PerRequest<SetlistPageViewModel>();
             container.PerRequest<SetlistPivotViewModel>();
             container.PerRequest<SetlistDataContext>();
@@ -44,9 +45,12 @@ namespace GigNotes
             // Toolkit DatePicker Convention
             ConventionManager.AddElementConvention<DatePicker>(
                 DatePicker.ValueProperty, "Value", "ValueChanged");
-
+            
             ConventionManager.AddElementConvention<LongListMultiSelector>(
                 LongListMultiSelector.ItemsSourceProperty, "DataContext", "Loaded");
+
+            ConventionManager.AddElementConvention<Slider>(
+                Slider.ValueProperty, "Value", "ValueChanged");
         }
 
         protected override object GetInstance(Type service, string key)

@@ -28,6 +28,21 @@
                 </DataTemplate>
             </toolkit:LongListMultiSelector.ItemTemplate>
         </toolkit:LongListMultiSelector>
-              
+
+        <bab:BindableAppBar x:Name="AppBar" BarOpacity="0.99">
+            <bab:BindableAppBarButton x:Name="AddSong"
+				Text="{Binding AddSongText}"
+				IconUri="{Binding AddSongIcon}"
+				Visibility="{Binding AddSongIsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <bab:BindableAppBarButton x:Name="DeleteSongs" 
+				Text="{Binding DeleteSongsText}"
+				IconUri="{Binding DeleteSongsIcon}"
+				Visibility="{Binding DeleteSongsIsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <bab:BindableAppBarButton x:Name="ToggleSelectionMode" 
+				Text="{Binding SelectionModeText}"
+				IconUri="{Binding SelectionModeIcon}"
+				Visibility="{Binding SelectionModeIsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        </bab:BindableAppBar>
+        
     </Grid>
 </phone:PhoneApplicationPage>

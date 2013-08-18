@@ -19,6 +19,11 @@ namespace GigNotes.ViewModels
         {
             get { return "setlists"; }
         }
+        
+        public Uri DisplayIcon
+        {
+            get { return new Uri("/Assets/Images/setlist.png", UriKind.Relative); }
+        }
 
         private BindableCollection<Setlist> _setlists;
         public BindableCollection<Setlist> Setlists
@@ -174,8 +179,8 @@ namespace GigNotes.ViewModels
             _db = new SetlistDataContext();
             _setlists = new BindableCollection<Setlist>();
 
-            SetUpAppBar();
-            LoadCollectionsFromDatabase();   
+            LoadCollectionsFromDatabase();  
+            SetUpAppBar();             
         }
                 
         public void ToggleSelectionMode()
@@ -185,7 +190,7 @@ namespace GigNotes.ViewModels
         
         public void AddSetlist()
         {
-            GoToNewSetlistPage();
+            _navigationService.UriFor<NewSetlistPageViewModel>().Navigate();
         }
 
         public void DeleteSetlists()
@@ -200,6 +205,7 @@ namespace GigNotes.ViewModels
             }
 
             SaveToDB();
+            CheckIfSelectionModeShouldBeHidden();
             ToggleSelectionMode();
         }
         
@@ -210,6 +216,8 @@ namespace GigNotes.ViewModels
 
             // Remove the setlist from the data context.
             _db.Setlists.DeleteOnSubmit(setlistForDelete);
+
+            CheckIfSelectionModeShouldBeHidden();
         }
         
         public void OpenSetlist(Setlist selectedSetlist)
@@ -242,14 +250,26 @@ namespace GigNotes.ViewModels
         
         #region Private Methods
 
+        private void CheckIfSelectionModeShouldBeHidden()
+        {
+            if (Setlists.Count == 0)
+            {
+                SelectionModeIsVisible = false;
+            }
+            else
+            {
+                SelectionModeIsVisible = true;
+            }
+        }
+
         private void SetUpAppBar()
         {
             AddSetlistText = "add setlist";
             AddSetlistIcon = new Uri("/Assets/Images/add.png", UriKind.Relative);
             AddSetlistIsVisible = true;
             SelectionModeText = "select";
-            SelectionModeIcon = new Uri("/Assets/Images/select.png", UriKind.Relative);
-            SelectionModeIsVisible = true;
+            SelectionModeIcon = new Uri("/Assets/Images/select.png", UriKind.Relative); 
+            CheckIfSelectionModeShouldBeHidden();
             DeleteSetlistsText = "delete";
             DeleteSetlistsIcon = new Uri("/Assets/Images/delete.png", UriKind.Relative);
             DeleteSetlistsIsVisible = false;
@@ -264,26 +284,13 @@ namespace GigNotes.ViewModels
 
             // Query the database and load all setlists.
             _setlists.AddRange(setlistsInDB);
-
-            // Specify the query for all songs in the database.
-            //var songsInDB = from Song s in _db.Repertoire
-            //                orderby s.Title
-            //                select s;
-
-            //// Query the database and load all songs.
-            //_songs.AddRange(songsInDB);
         }
 
         private void SaveToDB()
         {
             _db.SubmitChanges();
         }
-
-        private void GoToNewSetlistPage()
-        {
-            _navigationService.UriFor<NewSetlistPageViewModel>().Navigate();
-        }
-        
+                
         #endregion
     }
 }

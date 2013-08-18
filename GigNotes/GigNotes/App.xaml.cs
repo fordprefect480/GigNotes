@@ -39,7 +39,7 @@ namespace GigNotes
                 // Display the current frame rate counters.
                 Application.Current.Host.Settings.EnableFrameRateCounter = true;
 
-                MetroGridHelper.IsVisible = true;
+                //MetroGridHelper.IsVisible = true;
                 // Show the areas of the app that are being redrawn in each frame.
                 //Application.Current.Host.Settings.EnableRedrawRegions = true;
 

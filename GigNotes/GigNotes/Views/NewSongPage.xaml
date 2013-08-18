@@ -1,0 +1,81 @@
+﻿<phone:PhoneApplicationPage
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+    xmlns:bab="clr-namespace:Caliburn.Micro.BindableAppBar;assembly=Caliburn.Micro.BindableAppBar"
+    x:Class="GigNotes.Views.NewSongPage"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="GIG NOTES" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="new song"  Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Margin="0,30,12,0">
+
+            <TextBlock Text="Title" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="28" Width="109" Margin="12,0,0,0"/>
+            <TextBox x:Name="Title" HorizontalAlignment="Right" Height="72" TextWrapping="Wrap" VerticalAlignment="Top" Width="468" InputScope="Text" Margin="0,0,0,30"/>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="BPM" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" Height="28" Width="156" Margin="12,0,0,0" />
+                <TextBlock Grid.Row="1" x:Name="BPMText" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Margin="12,0,0,0" FontSize="36"/>
+                <Slider Grid.Row="1" x:Name="BPM" Minimum="40" Maximum="300" HorizontalAlignment="Left" Margin="128,0,0,0" Width="340" SmallChange="1" LargeChange="5" />
+            </Grid>
+            <TextBlock Text="Key" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="28" Width="109" Margin="12,0,0,0"/>
+            <toolkit:ListPicker x:Name="Keys" ExpansionMode="FullScreenOnly" Height="72" VerticalAlignment="Top" Margin="12,0,10,0">
+                <toolkit:ListPicker.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" />
+                    </DataTemplate>
+                </toolkit:ListPicker.ItemTemplate>
+                <toolkit:ListPicker.FullModeItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Margin="16 21 0 20">
+                            <TextBlock Text="{Binding}"     
+            					Margin="0 0 0 0"     
+            					FontSize="43"      
+            					FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </toolkit:ListPicker.FullModeItemTemplate>
+            </toolkit:ListPicker>
+
+        </StackPanel>
+
+        <bab:BindableAppBar x:Name="AppBar">
+            <bab:BindableAppBarButton x:Name="AddSong"
+                                  Text="{Binding ConfirmText}"
+                                  IconUri="{Binding ConfirmIcon}"
+                                  Visibility="{Binding ConfirmIsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"  />
+            <bab:BindableAppBarButton x:Name="Cancel"
+                                  Text="{Binding CancelText}"
+                                  IconUri="{Binding CancelIcon}"
+                                  Visibility="{Binding CancelIsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"  />
+        </bab:BindableAppBar>
+
+    </Grid>
+
+</phone:PhoneApplicationPage>

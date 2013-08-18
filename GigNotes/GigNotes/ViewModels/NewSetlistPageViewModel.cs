@@ -98,8 +98,19 @@ namespace GigNotes.ViewModels
                     AdditionalInfo = AdditionalInfo
                 };
 
+                //set up 4 blank sets
+                for (var i = 0; i < 4; i++)
+                {
+                    var newSet = new Set();
+                    newSet.Order = i + 1;
+                    newSetlist.Sets.Add(newSet);
+                }
+
                 // Add a setlist to the data context.
                 _db.Setlists.InsertOnSubmit(newSetlist);
+
+
+                //_db.Sets.InsertAllOnSubmit(newSetlist.Sets);
 
                 // Save changes to the database.
                 _db.SubmitChanges();
@@ -109,19 +120,17 @@ namespace GigNotes.ViewModels
                 throw new ArgumentNullException("Gig must be given a name.");
             }
 
-            // Add a setlist to the "all" observable collection.
-            //_db.Add(newSetlist);
-
-            _navigationService.UriFor<MainPageViewModel>().Navigate();
+            NavigateToMainPage();
         }
 
         public void Cancel()
         {
-            // Return to the main page.
-            if (_navigationService.CanGoBack)
-            {
-                _navigationService.GoBack();
-            }
+            NavigateToMainPage();
+        }
+
+        public void NavigateToMainPage()
+        {
+            _navigationService.UriFor<MainPageViewModel>().Navigate();
         }
     }
 }

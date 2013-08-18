@@ -13,5 +13,10 @@ namespace GigNotes.ViewModels
         {
             get { return "about"; }
         }
+
+        public Uri DisplayIcon
+        {
+            get { return new Uri("/Assets/Images/about.png", UriKind.Relative); }
+        }
     }
 }

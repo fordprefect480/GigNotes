@@ -34,7 +34,7 @@
             </toolkit:LongListMultiSelector.ItemTemplate>
         </toolkit:LongListMultiSelector>
 
-        <bab:BindableAppBar x:Name="AppBar" BarOpacity="0.99" IsEnabled="{Binding IsActive}">
+        <bab:BindableAppBar x:Name="AppBar" BarOpacity="0.99" Visibility="{Binding IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
             <bab:BindableAppBarButton x:Name="AddSetlist"
 				Text="{Binding AddSetlistText}"
 				IconUri="{Binding AddSetlistIcon}"

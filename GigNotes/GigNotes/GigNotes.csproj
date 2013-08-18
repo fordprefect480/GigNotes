@@ -91,6 +91,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="ViewModels\NewSongPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageAboutPivotViewModel.cs" />
     <Compile Include="ViewModels\MainPageSetlistsPivotViewModel.cs" />
     <Compile Include="ViewModels\MainPageSongsPivotViewModel.cs" />
@@ -104,6 +105,9 @@
     </Compile>
     <Compile Include="ViewModels\ViewModelBase.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\NewSongPage.xaml.cs">
+      <DependentUpon>NewSongPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -134,11 +138,12 @@
     <Compile Include="Views\SetlistPage.xaml.cs">
       <DependentUpon>SetlistPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SetPage.xaml.cs">
-      <DependentUpon>SetPage.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\NewSongPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -167,10 +172,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SetPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -180,6 +181,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\ApplicationIcon_sm.png" />
     <Content Include="Assets\Backgrounds\2blackcases.jpg" />
     <Content Include="Assets\Backgrounds\bg.jpg" />
     <Content Include="Assets\AlignmentGrid.png" />
@@ -192,6 +194,9 @@
     <Content Include="Assets\Backgrounds\plantcase.jpg" />
     <Content Include="Assets\Backgrounds\stickeredcase.jpg" />
     <Content Include="Assets\Images\add.png" />
+    <Content Include="Assets\Images\about.png" />
+    <Content Include="Assets\Images\setlist.png" />
+    <Content Include="Assets\Images\songbook.png" />
     <Content Include="Assets\Images\delete.png" />
     <Content Include="Assets\Images\select.png" />
     <Content Include="Assets\Images\cancel.png" />

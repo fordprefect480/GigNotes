@@ -18,8 +18,13 @@ namespace GigNotes.Model
         public SetlistDataContext()
             : base(App.DbConnection)
         { }
-        
-        public Table<Setlist> Setlists;
+
+        public Table<Setlist> Setlists
+        {
+            return this.GetTable<Setlist>();   
+        };
+
+        public Table<Set> Sets;
 
         public Table<Song> Repertoire;
     }
@@ -120,27 +125,15 @@ namespace GigNotes.Model
             }
         }
 
-        private BindableCollection<Set> _sets;
-        public BindableCollection<Set> Sets
+        [Association]
+        private EntitySet<Set> _sets;
+        public EntitySet<Set> Sets
         {
             get
             {
                 if (_sets == null)
                 {
-                    _sets = new BindableCollection<Set>();
-                    /* TEST DATA */
-                    var newSet = new Set();
-                    newSet.Order = 1;
-                    _sets.Add(newSet);
-                    newSet = new Set();
-                    newSet.Order = 2;
-                    _sets.Add(newSet); 
-                    newSet = new Set();
-                    newSet.Order = 3;
-                    _sets.Add(newSet);
-                    newSet = new Set();
-                    newSet.Order = 4;
-                    _sets.Add(newSet);
+                    _sets = new EntitySet<Set>();
                 }
 
                 return _sets;
@@ -226,20 +219,14 @@ namespace GigNotes.Model
             get { return "set " + Order; }
         }
 
-        private BindableCollection<Song> _songs;
-        public BindableCollection<Song> Songs
+        private BindableCollection<EntityRef<Song>> _songs;
+        public BindableCollection<EntityRef<Song>> Songs
         {
             get
             {
                 if (_songs == null)
                 {
-                    _songs = new BindableCollection<Song>();
-                    /* TEST DATA */
-                    var s = new Song() { SongId = 1, Title = "April Sun in Cuba" };
-                    var s2 = new Song() { SongId = 2, Title = "Thriller" };
-                    _songs.Add(s);
-                    _songs.Add(s2);
-
+                    _songs = new BindableCollection<EntityRef<Song>>();
                 }
                 return _songs;
             }
@@ -315,6 +302,56 @@ namespace GigNotes.Model
                     NotifyPropertyChanging("Title");
                     _title = value;
                     NotifyPropertyChanged("Title");
+                }
+            }
+        }
+
+        private int _bpm;
+
+        [Column]
+        public int BPM
+        {
+            get { return _bpm; }
+            set
+            {
+                if (_bpm != value)
+                {
+                    NotifyPropertyChanging("BPM");
+                    _bpm = value;
+                    NotifyPropertyChanged("BPM");
+                }
+            }
+        }
+
+
+        private string _key;
+
+        [Column]
+        public string Key
+        {
+            get { return _key; }
+            set
+            {
+                if (_key != value)
+                {
+                    NotifyPropertyChanging("Key");
+                    _key = value;
+                    NotifyPropertyChanged("Key");
+                }
+            }
+        }
+
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get { return _isSelected; }
+            set
+            {
+                if (_isSelected != value)
+                {
+                    NotifyPropertyChanging("IsSelected");
+                    _isSelected = value;
+                    NotifyPropertyChanged("IsSelected");
                 }
             }
         }

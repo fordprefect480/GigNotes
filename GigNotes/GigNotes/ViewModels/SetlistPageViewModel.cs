@@ -50,16 +50,7 @@ namespace GigNotes.ViewModels
                 NotifyOfPropertyChange(() => Setlist);
             }
         }
-
-        //public BindableCollection<Set> Sets
-        //{
-        //    get
-        //    {
-        //        new DebugLogger(typeof(SetlistPageViewModel)).Info("Getting Setlist.Sets. Count = {0}", Setlist.Sets.Count);
-        //        return Setlist.Sets;
-        //    }
-        //}
-
+        
         public string SetlistName
         {
             get 
@@ -105,10 +96,10 @@ namespace GigNotes.ViewModels
         {
             base.OnInitialize();
 
-            this.item1.Set = Setlist.Sets[0];
-            this.item2.Set = Setlist.Sets[1];
-            this.item3.Set = Setlist.Sets[2];
-            this.item4.Set = Setlist.Sets[3];
+            this.item1.Set.SetId = Setlist.Sets[0].SetId;
+            this.item2.Set.SetId = Setlist.Sets[1].SetId;
+            this.item3.Set.SetId = Setlist.Sets[2].SetId;
+            this.item4.Set.SetId = Setlist.Sets[3].SetId;
             Items.Add(item1);
             Items.Add(item2);
             Items.Add(item3);

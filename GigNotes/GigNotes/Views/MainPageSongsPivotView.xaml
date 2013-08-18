@@ -18,6 +18,7 @@
     d:DesignHeight="480" d:DesignWidth="480">
 
     <Grid x:Name="LayoutRoot">
+        
         <toolkit:LongListMultiSelector 
                     x:Name="Songs" Margin="0"
                     IsSelectionEnabled="{Binding IsInMultiSelectMode, Mode=TwoWay}" 
@@ -25,14 +26,29 @@
                     cal:Message.Handler="[Event IsSelectionEnabledChanged] = [Action ToggleSelectionMode()]">
             <toolkit:LongListMultiSelector.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel cal:Message.Attach="[Event Tap] = [Action OpenSetlist($dataContext)]">
-                        <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="0" />
-                        <TextBlock Text="{Binding GigDateFormatted}" TextWrapping="Wrap" Style="{StaticResource PhoneTextAccentStyle}" />
+                    <StackPanel cal:Message.Attach="[Event Tap] = [Action OpenSong($dataContext)]">
+                        <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="0" />
+                        <!-- <TextBlock Text="{Binding GigDateFormatted}" TextWrapping="Wrap" Style="{StaticResource PhoneTextAccentStyle}" /> -->
                     </StackPanel>
                 </DataTemplate>
             </toolkit:LongListMultiSelector.ItemTemplate>
         </toolkit:LongListMultiSelector>
 
+        <bab:BindableAppBar x:Name="AppBar" BarOpacity="0.99" Visibility="{Binding IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <bab:BindableAppBarButton x:Name="AddSong"
+				Text="{Binding AddSongText}"
+				IconUri="{Binding AddSongIcon}"
+				Visibility="{Binding AddSongIsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <bab:BindableAppBarButton x:Name="DeleteSongs" 
+				Text="{Binding DeleteSongsText}"
+				IconUri="{Binding DeleteSongsIcon}"
+				Visibility="{Binding DeleteSongsIsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <bab:BindableAppBarButton x:Name="ToggleSelectionMode" 
+				Text="{Binding SelectionModeText}"
+				IconUri="{Binding SelectionModeIcon}"
+				Visibility="{Binding SelectionModeIsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        </bab:BindableAppBar>
+        
     </Grid>
 
 </phone:PhoneApplicationPage>
